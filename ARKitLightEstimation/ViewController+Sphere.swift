@@ -36,4 +36,21 @@ extension ViewController {
     node.addChildNode(lightNode)
     lightNodes.append(lightNode)
   }
+  
+  func updateLightNodesLightEstimation() {
+    DispatchQueue.main.async {
+      guard self.lightEstimationSwitch.isOn,
+        let lightEstimate = self.sceneView.session.currentFrame?.lightEstimate else { return }
+      
+      let ambientIntensity = lightEstimate.ambientIntensity
+      let ambientColorTemperature = lightEstimate.ambientColorTemperature
+      
+      for lightNode in self.lightNodes {
+        guard let light = lightNode.light else { continue }
+        
+        light.intensity = ambientIntensity
+        light.temperature = ambientColorTemperature
+      }
+    }
+  }
 }

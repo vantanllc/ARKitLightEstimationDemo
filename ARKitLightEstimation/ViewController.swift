@@ -102,7 +102,7 @@ extension ViewController: ARSCNViewDelegate {
   }
   
   func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
-    
+    updateLightNodesLightEstimation()
   }
 }
 
